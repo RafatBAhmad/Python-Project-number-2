@@ -79,9 +79,8 @@ def stats(team,name_team):
         players_name.append(name['name'])
     print(', '.join(players_name))
     print("\n")
-    response = input("Press Enter to continue...")
-    if response == "Enter":
-        main_app()
+    input("Press Enter to continue...")
+    main_app()
 
 clean_data()
 balance_teams()
