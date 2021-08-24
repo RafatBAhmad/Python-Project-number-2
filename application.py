@@ -8,7 +8,8 @@ teams   = copy.deepcopy(constants.TEAMS)
 Panthers = []
 Bandits  = []
 Warriors = []
-
+experince_player   = []
+unexperince_player = []
 
 def main_app():
     print("--------------------------")
@@ -52,8 +53,10 @@ def clean_data():
         experience = player['experience'].split()
         if experience[0] == "YES":
             player['experience'] = True
+            experince_player.append(player)
         else:
             player['experience'] = False
+            unexperince_player.append(player)
         #guardians = player["guardians"].split("and")
         player["guardians"] = player["guardians"].split("and")    
 
@@ -84,4 +87,9 @@ def stats(team,name_team):
 
 clean_data()
 balance_teams()
+print(experince_player)
+print(len(experince_player))
+print("\n")
+print(unexperince_player)
+print(len(unexperince_player))
 main_app()
