@@ -5,11 +5,13 @@ import sys
 players = copy.deepcopy(constants.PLAYERS)
 teams   = copy.deepcopy(constants.TEAMS)
 
-Panthers = []
-Bandits  = []
-Warriors = []
+Panthers  = []
+Bandits   = []
+Warriors  = []
+
 experince_player   = []
 unexperince_player = []
+
 
 def main_app():
     print("--------------------------")
@@ -47,8 +49,6 @@ def main_app():
 
 def clean_data():
     for player in players:
-        #height = player['height'].split()
-        #height = int(height[0])
         player['height'] = int(player['height'].split()[0])
         experience = player['experience'].split()
         if experience[0] == "YES":
@@ -57,39 +57,76 @@ def clean_data():
         else:
             player['experience'] = False
             unexperince_player.append(player)
-        #guardians = player["guardians"].split("and")
         player["guardians"] = player["guardians"].split("and")    
 
 
 def balance_teams():
-    num_players_team = int(len(players)/len(teams))
+    num_players_team   = int(len(players)/len(teams))
+    num_explayers_team = int(len(experince_player)/len(teams))
     for player in players:
         if len(Panthers) < num_players_team :
-            Panthers.append(player)
+            for ex_player in experince_player:
+                if len(Panthers) < num_explayers_team :
+                    Panthers.append(ex_player)
+            if player["experience"] == False:
+                Panthers.append(player)        
         elif len(Bandits) < num_players_team:
-            Bandits.append(player)
+            for ex_player in experince_player:
+                if len(Bandits) < num_explayers_team :
+                    Bandits.append(ex_player)
+            if player["experience"] == False:
+                Bandits.append(player)
         else:
             Warriors.append(player) 
 
+
 def stats(team,name_team):
+    players_name = []
+    guardians = []
+    num_exp_players   = 0
+    num_inexp_players = 0
+    sum_height = 0
+    for player in team:
+        sum_height += player["height"]
+        if player["experience"] == True:
+            num_exp_players   += 1
+        else:
+            num_inexp_players += 1 
+       
     print("\n")
     print("Team: {} stats".format(name_team))
     print("---------------------")
     print("Total players: {}\n".format(len(team)))
-    print("Players on Team:")
-    players_name = []
+    print("Total experienced: {}\n".format(num_exp_players))
+    print("Total inexperienced: {}\n".format(num_inexp_players))
+    print("Average height: {}\n".format(sum_height/len(team)))
     for name in team:
         players_name.append(name['name'])
+    print("Players on Team:")
     print(', '.join(players_name))
+    print("\n")
+    for guar in team:
+        guardians.append(guar['guardians'])
+    print("Guardians:")
+    print(', '.join('{}'.format(k) for k in guardians))
     print("\n")
     input("Press Enter to continue...")
     main_app()
 
 clean_data()
 balance_teams()
-print(experince_player)
-print(len(experince_player))
-print("\n")
-print(unexperince_player)
-print(len(unexperince_player))
 main_app()
+
+
+
+'''print("Panthers Team\n")
+for p in Panthers:
+    print(p)
+print("\n")
+print("Warriors Team\n")
+for p in Warriors:
+    print(p)
+print("\n")
+print("Bandits Team\n")
+for p in Bandits:
+    print(p)'''
