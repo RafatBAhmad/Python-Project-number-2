@@ -4,17 +4,14 @@ import sys
 
 players = copy.deepcopy(constants.PLAYERS)
 teams   = copy.deepcopy(constants.TEAMS)
-
 Panthers  = []
 Bandits   = []
 Warriors  = []
-
 experince_player   = []
 inexperince_player = []
 
 
 def main_app():
-    
     print("--------------------------")
     print("BASKETBALL TEAM STATS TOOL ")
     print("--------------------------\n")
@@ -40,7 +37,6 @@ def main_app():
                     stats(Warriors,"Warriors") 
                 else:
                     print("Please enter valid choice!\n")           
-            
         else:
             print("Please enter valid choice!\n") 
 
@@ -90,8 +86,7 @@ def stats(team,name_team):
         if player["experience"] == True:
             num_exp_players   += 1
         else:
-            num_inexp_players += 1 
-       
+            num_inexp_players += 1       
     print("\n")
     print("Team: {} stats".format(name_team))
     print("---------------------")
@@ -115,9 +110,8 @@ def stats(team,name_team):
     input("Press Enter to continue...")
     main_app()
 
+
 if __name__ == '__main__': 
     clean_data()
     balance_teams()
     main_app()
-
-
